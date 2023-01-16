@@ -15,8 +15,8 @@ public class VehicleMapper {
         VehicleDto dto = new VehicleDto();
         dto.setId(vehicle.getId());
         dto.setName(vehicle.getName());
-        dto.setEnginePower(vehicle.getEnginePower());
-        dto.setNumberOfWheels(vehicle.getNumberOfWheels());
+        dto.setEnginePower(String.valueOf(vehicle.getEnginePower()));
+        dto.setNumberOfWheels(String.valueOf(vehicle.getNumberOfWheels()));
 
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy - HH:mm:ss z");
         dto.setCreationDate(vehicle.getCreationDate().format(formatter));
@@ -26,8 +26,8 @@ public class VehicleMapper {
 
         CoordinatesDto coordinatesDto = new CoordinatesDto();
         coordinatesDto.setId(vehicle.getCoordinates().getId());
-        coordinatesDto.setX(vehicle.getCoordinates().getX());
-        coordinatesDto.setY(vehicle.getCoordinates().getY());
+        coordinatesDto.setX(String.valueOf(vehicle.getCoordinates().getX()));
+        coordinatesDto.setY(String.valueOf(vehicle.getCoordinates().getY()));
 
         dto.setCoordinates(coordinatesDto);
 
@@ -38,8 +38,8 @@ public class VehicleMapper {
         Vehicle vehicle = new Vehicle();
         vehicle.setId(dto.getId());
         vehicle.setName(dto.getName());
-        vehicle.setEnginePower(dto.getEnginePower());
-        vehicle.setNumberOfWheels(dto.getNumberOfWheels());
+        vehicle.setEnginePower(Double.parseDouble(dto.getEnginePower()));
+        vehicle.setNumberOfWheels(Long.parseLong(dto.getNumberOfWheels()));
 
         vehicle.setCreationDate(ZonedDateTime.parse(dto.getCreationDate(), DateTimeFormatter.ofPattern("MM/dd/yyyy - HH:mm:ss z")));
 
@@ -48,8 +48,8 @@ public class VehicleMapper {
 
         Coordinates coordinates = new Coordinates();
         coordinates.setId(dto.getCoordinates().getId());
-        coordinates.setX(dto.getCoordinates().getX());
-        coordinates.setY(dto.getCoordinates().getY());
+        coordinates.setX(Float.parseFloat(dto.getCoordinates().getX()));
+        coordinates.setY(Double.parseDouble(dto.getCoordinates().getY()));
 
         vehicle.setCoordinates(coordinates);
 

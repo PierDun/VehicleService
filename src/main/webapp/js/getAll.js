@@ -1,9 +1,10 @@
 window.onload = async function getAllVehicles() {
-    let url = "/CRUDWithRestAndJSP/api/vehicles";
+    let url = "/VehicleService/api/vehicles";
     let response = await fetch(url);
     if (response.ok) {
         let json = await response.json();
         $("#numberOfRecordsPerPage").val(10);
+        $("#total").val(json.length);
 
         const pagesQuantity = Math.ceil(json.length / 10);
         $('#selectedPage').remove();

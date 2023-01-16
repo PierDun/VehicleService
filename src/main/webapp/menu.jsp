@@ -11,13 +11,13 @@
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
     <ul class="navbar-nav">
         <li class="nav-item ${param.list}">
-            <a class="nav-link" href="/CRUDWithRestAndJSP/main-page.jsp">Vehicle List</a>
+            <a class="nav-link" href="/VehicleService/main-page.jsp">Vehicle List</a>
         </li>
         <li class="nav-item ${param.new}">
-            <a class="nav-link" href="/CRUDWithRestAndJSP/api/pages/add-vehicle-form">New Vehicle</a>
+            <a class="nav-link" href="/VehicleService/api/pages/add-vehicle-form">New Vehicle</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link ${param.id}" href="/CRUDWithRestAndJSP/api/pages/get-by-id-form">Get Vehicle by id</a>
+            <a class="nav-link ${param.id}" href="/VehicleService/api/pages/get-by-id-form">Get Vehicle by id</a>
         </li>
     </ul>
 </nav>

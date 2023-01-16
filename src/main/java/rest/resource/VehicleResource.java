@@ -12,6 +12,8 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.time.ZonedDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
 
@@ -24,6 +26,8 @@ public class VehicleResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public Response createVehicle (VehicleDto dto) {
         try {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy - HH:mm:ss z");
+            dto.setCreationDate(ZonedDateTime.now().format(formatter));
             validator.validate(dto);
             vehicleService.createVehicle(dto);
             return Response.status(Response.Status.OK).build();

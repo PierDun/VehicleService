@@ -1,6 +1,6 @@
 window.onload = async function getVehicleForEdit () {
     let id = window.location.href.substring(window.location.href.indexOf("id") + 3);
-    let url = "/CRUDWithRestAndJSP/api/vehicles/" + id;
+    let url = "/VehicleService/api/vehicles/" + id;
     let response = await fetch(url);
     if (response.ok) {
         let json = await response.json();
@@ -21,16 +21,22 @@ window.onload = async function getVehicleForEdit () {
 async function updateVehicle() {
     const updateDragonForm = document.forms.namedItem("updateVehicleForm");
     let formData = new FormData(updateDragonForm);
-    const newVehicle = JSON.stringify({id: formData.get('id'),
+    const newVehicle = JSON.stringify({
+        id: formData.get('id'),
         name: formData.get('name'),
         creationDate: formData.get('creationDate'),
-        coordinates: {id: formData.get('coor_id') ,x: formData.get('x') , y: formData.get('y')},
+        coordinates: {
+            id: formData.get('coor_id'),
+            x: formData.get('x'),
+            y: formData.get('y')
+        },
         enginePower: formData.get('enginePower'),
         numberOfWheels: formData.get('numberOfWheels'),
         type: formData.get('type'),
-        fuelType: formData.get('fuelType')});
+        fuelType: formData.get('fuelType')}
+    );
 
-    let response = await fetch('/CRUDWithRestAndJSP/api/vehicles/' + formData.get('id'), {
+    let response = await fetch('/VehicleService/api/vehicles/' + formData.get('id'), {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json;charset=utf-8'
@@ -43,7 +49,7 @@ async function updateVehicle() {
 
 async function getErrorMsg(response) {
     if (response.ok) {
-        window.location = '/CRUDWithRestAndJSP/main-page.jsp';
+        window.location = '/VehicleService/main-page.jsp';
     } else {
         let errorMsg = await response.text();
         $('.error-msg__text').remove();

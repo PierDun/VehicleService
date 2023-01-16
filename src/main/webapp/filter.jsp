@@ -10,8 +10,9 @@
 <body>
 <caption><h2>Filter</h2></caption>
 <form method="get" class="filter-form paginatorForm" name="numberOfRecordsPerPageForm">
+    <input type="hidden" id="total" class="form-control"/>
     <p> Items per page </p>
-    <select id="numberOfRecordsPerPage" class="form-select" name="numberOfRecordsPerPage" onchange="changePagesQuantity(${vehiclesLength})">
+    <select id="numberOfRecordsPerPage" class="form-select" name="numberOfRecordsPerPage" onchange="changePagesQuantity()">
         <option value="5">5</option>
         <option selected value="10">10</option>
         <option value="25">25</option>
@@ -148,10 +149,10 @@
         </form>
     </div>
     <div class="tab-pane fade" id="fuel">
-        <form class="filter-form" name="findDragonsWithLesserColor">
+        <form class="filter-form" name="findUniqueFuelTypes">
             <p> Find Unique Fuel Types: </p>
             <input type="button" class="btn btn-primary name-filter-btn" value="find" onclick="fuelList()"/>
-            <b id = "list_result"></b>
+            <b id = "list_result" style="white-space: pre-line"></b>
         </form>
     </div>
 </div>

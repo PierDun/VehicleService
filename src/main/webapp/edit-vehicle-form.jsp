@@ -17,7 +17,7 @@
             Edit Vehicle
         </h2>
     </caption>
-    <div class="error-msg">
+    <div class="error-msg" style="white-space: pre-line">
     </div>
     <div align="center">
         <form name="updateVehicleForm">

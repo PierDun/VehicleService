@@ -33,42 +33,40 @@ public class VehicleService {
     }
 
     public void createVehicle (@NotNull VehicleDto dto) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MM/dd/yyyy - HH:mm:ss z");
-        dto.setCreationDate(ZonedDateTime.now().format(formatter));
-        Vehicle vehicle = VehicleMapper.dtoToVehicle(dto);
-        vehicleDAO.createVehicle(vehicle);
-    }
-
-    public void updateVehicle(VehicleDto dto) {
-        Vehicle vehicle = VehicleMapper.dtoToVehicle(dto);
-        vehicleDAO.updateVehicle(vehicle);
-    }
-
-    public void deleteVehicle(long id) {
-        if (!vehicleDAO.deleteVehicle(id))
-            throw new EntityNotFoundException("Cannot find vehicle with id " + id);
-    }
-
-    public List<VehicleDto> filter (Map<String, String[]> queryMap) {
-        List<VehicleDto> dtos = new ArrayList<>();
-        List<Vehicle> filteredVehicles;
-        if (queryMap.size() == 2 && queryMap.containsKey("selectedPage") && queryMap.containsKey("numberOfRecordsPerPage")) {
-            filteredVehicles = vehicleDAO.getAllVehicles();
-        } else {
-            filteredVehicles = vehicleDAO.getFilteredVehicles(queryMap);
+            Vehicle vehicle = VehicleMapper.dtoToVehicle(dto);
+            vehicleDAO.createVehicle(vehicle);
         }
 
-        if (queryMap.containsKey("selectedPage") && queryMap.containsKey("numberOfRecordsPerPage")) {
-            int page = Integer.parseInt(queryMap.get("selectedPage")[0]);
-            int perPage = Integer.parseInt(queryMap.get("numberOfRecordsPerPage")[0]);
+        public void updateVehicle(VehicleDto dto) {
+            Vehicle vehicle = VehicleMapper.dtoToVehicle(dto);
+            vehicleDAO.updateVehicle(vehicle);
+        }
 
-            int from = (page - 1) * perPage;
-            int to = Math.min(from + perPage, filteredVehicles.size());
+        public void deleteVehicle(long id) {
+            if (!vehicleDAO.deleteVehicle(id))
+                throw new EntityNotFoundException("Cannot find vehicle with id " + id);
+        }
 
-            for (Vehicle vehicle: filteredVehicles.subList(from, to)) {
-                dtos.add(VehicleMapper.vehicleToDto(vehicle));
+        public List<VehicleDto> filter (Map<String, String[]> queryMap) {
+            List<VehicleDto> dtos = new ArrayList<>();
+            List<Vehicle> filteredVehicles;
+            if (queryMap.size() == 2 && queryMap.containsKey("selectedPage") && queryMap.containsKey("numberOfRecordsPerPage")) {
+                filteredVehicles = vehicleDAO.getAllVehicles();
+            } else {
+                filteredVehicles = vehicleDAO.getFilteredVehicles(queryMap);
             }
-        } else {
+
+            if (queryMap.containsKey("selectedPage") && queryMap.containsKey("numberOfRecordsPerPage")) {
+                int page = Integer.parseInt(queryMap.get("selectedPage")[0]);
+                int perPage = Integer.parseInt(queryMap.get("numberOfRecordsPerPage")[0]);
+
+                int from = (page - 1) * perPage;
+                int to = Math.min(from + perPage, filteredVehicles.size());
+
+                for (Vehicle vehicle: filteredVehicles.subList(from, to)) {
+                    dtos.add(VehicleMapper.vehicleToDto(vehicle));
+                }
+            } else {
             for (Vehicle vehicle: filteredVehicles) {
                 dtos.add(VehicleMapper.vehicleToDto(vehicle));
             }
@@ -85,7 +83,7 @@ public class VehicleService {
         StringBuilder response = new StringBuilder();
         for (FuelType fuel: fuels) {
             response.append(fuel.toString());
-            response.append(", ");
+            response.append(", \n");
         }
         response.delete(response.length() - 2, response.length() - 1);
         return response.toString();

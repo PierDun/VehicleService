@@ -9,6 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class CoordinatesDto {
     private Long id;
-    private Float x;
-    private Double y;
+    private String x;
+    private String y;
 }

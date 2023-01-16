@@ -11,8 +11,8 @@ public class VehicleDto {
     Long id;
     String creationDate;
     String name;
-    Double enginePower;
-    Long numberOfWheels;
+    String enginePower;
+    String numberOfWheels;
     CoordinatesDto coordinates;
     String type;
     String fuelType;

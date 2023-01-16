@@ -17,7 +17,7 @@
         Add New Vehicle
     </h2>
   </caption>
-  <div class="error-msg">
+  <div class="error-msg" style="white-space: pre-line">
   </div>
   <form method="post" align="center" name="addVehicleForm">
     <p>Name:

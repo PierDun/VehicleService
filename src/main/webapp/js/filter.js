@@ -12,7 +12,7 @@ fields.forEach((element) => {
 
 async function filter () {
     const formData = new FormData(document.forms.namedItem("filterForm"));
-    let getStr = "/CRUDWithRestAndJSP/api/vehicles?";
+    let getStr = "/VehicleService/api/vehicles?";
     let selectedColumn = getSelectedColumn();
     let selectedOrder = getSelectedOrder();
 
@@ -27,14 +27,14 @@ async function filter () {
 }
 
 async function powerSum () {
-    let response = await fetch('/CRUDWithRestAndJSP/api/vehicles/engine-power/sum');
+    let response = await fetch('/VehicleService/api/vehicles/engine-power/sum');
     if (response.ok) {
         document.getElementById("sum_result").textContent = await response.text();
     }
 }
 
 async function minName () {
-    let response = await fetch('/CRUDWithRestAndJSP/api/vehicles/name/min');
+    let response = await fetch('/VehicleService/api/vehicles/name/min');
     if (response.ok) {
         let json = await response.json();
 
@@ -56,13 +56,15 @@ async function minName () {
 }
 
 async function fuelList () {
-    let response = await fetch('/CRUDWithRestAndJSP/api/vehicles/fuel-type/unique');
+    let response = await fetch('/VehicleService/api/vehicles/fuel-type/unique');
     if (response.ok) {
-        $("#list_result").textContent = await response.text();
+        const text = await response.text();
+        $("#list_result").text(text);
     }
 }
 
-function changePagesQuantity(vehiclesQuantity) {
+function changePagesQuantity() {
+    let vehiclesQuantity = $("#total").val();
     const numberOfRecordsPerPage = document.getElementById("numberOfRecordsPerPage").value;
     const pagesQuality = Math.ceil(vehiclesQuantity / numberOfRecordsPerPage);
     $('#selectedPage').remove();
@@ -75,9 +77,9 @@ function changePagesQuantity(vehiclesQuantity) {
 }
 
 async function deleteVehicle(id) {
-    let response = await fetch('/CRUDWithRestAndJSP/api/vehicles/' + id, {method: 'DELETE'});
+    let response = await fetch('/VehicleService/api/vehicles/' + id, {method: 'DELETE'});
     if (response.ok) {
-        window.location = '/CRUDWithRestAndJSP/main-page.jsp';
+        window.location = '/VehicleService/main-page.jsp';
     }
 }
 

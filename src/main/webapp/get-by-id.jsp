@@ -12,6 +12,7 @@
   <caption><h2>Get vehicle by id</h2></caption>
   <input class="form-control mt-3" type="text" name="id" id = "id" value="0" style="width: 30%; margin: 0 auto;"/>
     <div class="mx-auto" style="color: red">
+      <h7  id = "error"></h7>
     </div>
   <input type="button" name="get" class="btn btn-primary mx-auto mt-3" value="find" onclick="sendGetRequest()"/>
 </form>

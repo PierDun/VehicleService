@@ -30,7 +30,7 @@ public class VehicleResource {
             dto.setCreationDate(ZonedDateTime.now().format(formatter));
             validator.validate(dto);
             vehicleService.createVehicle(dto);
-            return Response.status(Response.Status.OK).build();
+            return Response.status(Response.Status.OK).entity(dto).build();
         } catch (ValidateFieldsException ex) {
             List<Error> errors = ex.getErrorMsg();
             return sendError(errors);
@@ -75,7 +75,7 @@ public class VehicleResource {
             validator.validate(dto);
             dto.setId(Long.parseLong(id));
             vehicleService.updateVehicle(dto);
-            return Response.status(Response.Status.OK).entity("The following vehicle has been updated").build();
+            return Response.status(Response.Status.OK).entity(dto).build();
         } catch (ValidateFieldsException ex) {
             List<Error> errors = ex.getErrorMsg();
             return sendError(errors);

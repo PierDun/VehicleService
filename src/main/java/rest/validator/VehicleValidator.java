@@ -6,6 +6,8 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import rest.model.Error;
+import rest.model.enums.FuelType;
+import rest.model.enums.VehicleType;
 
 public class VehicleValidator {
     private final CoordinatesValidator coordinatesValidator = new CoordinatesValidator();
@@ -18,8 +20,8 @@ public class VehicleValidator {
                 errorList.add(new Error(700, (String.format("Vehicle's %s is not specified", f.getName())), f.getName()));
         }
 
-        double enginePower = 0.0;
-        long numberOfWheels = 0L;
+        double enginePower;
+        long numberOfWheels;
 
         if (vehicle.getName() != null && vehicle.getName().isEmpty())
             errorList.add(new Error(701, "Vehicle's name should not be empty","Name"));
@@ -44,8 +46,14 @@ public class VehicleValidator {
         if (vehicle.getType() == null)
             errorList.add(new Error(701,"Vehicle's type should not be empty", "Vehicle Type"));
 
+        if (!containsType(vehicle.getType()))
+            errorList.add(new Error(701,"Incorrect Vehicle's type", "Vehicle Type"));
+
         if (vehicle.getFuelType() == null)
             errorList.add(new Error(701,"Vehicle's fuel type should not be empty", "Fuel Type"));
+
+        if (!containsFuel(vehicle.getFuelType()))
+            errorList.add(new Error(701,"Incorrect Vehicle's fuel type", "Fuel Type"));
 
         errorList.addAll(coordinatesValidator.validate(vehicle.getCoordinates()));
 
@@ -71,5 +79,23 @@ public class VehicleValidator {
         } catch (NumberFormatException nfe) {
             return false;
         }
+    }
+
+    private boolean containsType (String test) {
+        for (VehicleType type : VehicleType.values()) {
+            if (type.name().equals(test)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean containsFuel (String test) {
+        for (FuelType type : FuelType.values()) {
+            if (type.name().equals(test)) {
+                return true;
+            }
+        }
+        return false;
     }
 }
